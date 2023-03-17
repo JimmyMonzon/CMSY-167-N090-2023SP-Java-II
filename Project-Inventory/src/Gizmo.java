@@ -9,6 +9,15 @@ public class Gizmo implements Comparable<Gizmo>{
     private final int quantity;
     private final double price;
 
+    /**
+     * Creates a new gizmo
+     *
+     * @param name The name of the planet
+     * @param productNumber The id number corresponding to a gizmo
+     * @param year The year the gizmo was added
+     * @param quantity how much of the gizmo is in stock
+     * @param price the cost of the gizmo
+     */
     public Gizmo(String name, int productNumber, int year, int quantity, double price) {
         this.name = name;
         this.productNumber = productNumber;
@@ -40,5 +49,16 @@ public class Gizmo implements Comparable<Gizmo>{
     @Override
     public int compareTo(Gizmo o) {
         return Integer.compare(this.getYear(), o.getYear());
+    }
+
+    @Override
+    public String toString() {
+        return "Gizmo{" +
+                "name='" + name + '\'' +
+                ", productNumber=" + productNumber +
+                ", year=" + year +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                '}';
     }
 }
