@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * keeps track of gizmo supplies
@@ -34,25 +35,25 @@ public class GizmoMain {
 
             } else if (menuChoice==3) {
                 Collections.sort(gizmos);
+                System.out.print("\nSorted by Year.");
 
             } else if (menuChoice==4) {
-                Collections.sort(gizmos, new Comparator<Gizmo>() {
-                    @Override
-                    public int compare(Gizmo o1, Gizmo o2) {
-                        return Double.compare(o1.getPrice(), o2.getPrice());
-                    }
-                });
+                gizmos.sort(Comparator.comparingDouble(Gizmo::getPrice));
+                System.out.print("\nSorted by Price of Gizmo.");
 
             } else if (menuChoice==5) {
-                Collections.sort(gizmos, new Comparator<Gizmo>() {
-                    @Override
-                    public int compare(Gizmo o1, Gizmo o2) {
-                        return Integer.compare(o1.getQuantity(), o2.getQuantity());
-                    }
-                });
+                gizmos.sort(Comparator.comparingInt(Gizmo::getQuantity));
+                System.out.print("\nSorted by Quantity in Stock");
 
             } else if (menuChoice==6) {
+                List<Double> list =  new ArrayList<>();
 
+                for(Gizmo currentGizmo: gizmos){
+                    list.add(currentGizmo.getPrice());
+                }
+                Stream<Double> stream = list.stream();
+
+                System.out.print("\nTotal Inventory Value: "+ stream.reduce((double) 0,(sum, next)->sum+next));
 
             } else if (menuChoice==7) {
                 printTable(gizmos);
@@ -62,7 +63,6 @@ public class GizmoMain {
             }
 
         }
-
         System.out.print("\nThank You for using this program.");
     }
 
@@ -137,6 +137,7 @@ public class GizmoMain {
         //Checks that price is a valid double (positive)
 
         gizmos.add(new Gizmo(name, prodNumInt, yearInt, quantInt, price));
+        System.out.printf("\nAdded New Entry: %s", name);
     }
 
     public static void removeEntry(List<Gizmo> gizmos, Scanner scanner){
@@ -148,6 +149,7 @@ public class GizmoMain {
         while (gizmoItr.hasNext()){
             current = gizmoItr.next();
             if(current.getName().equalsIgnoreCase(name)){
+                System.out.printf("\nRemoved Entry: %s", current.getName());
                 gizmoItr.remove();
             }
 
