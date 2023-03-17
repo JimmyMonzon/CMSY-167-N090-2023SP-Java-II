@@ -32,7 +32,9 @@ public class GizmoMain {
             if(menuChoice == 1){
                 addEntry(gizmos,scanner);
 
-            }else if (menuChoice == 8){
+            } else if (menuChoice==2) {
+
+            } else if (menuChoice == 8){
                 run=false;
             }
 
@@ -45,10 +47,17 @@ public class GizmoMain {
         String line;
         int temp;
 
-        System.out.print("\nMenu: \n1. Add Entry \n2. Remove an Entry \n3. Sort List by Year" +
-                "\n4. Sort List by Price \n5. Sort List by Quantity" +
-                "\n6. Calculate and Print the Total Value of the Inventory \n7. Print Inventory" +
-                "\n8. Quit");
+        System.out.print("""
+
+                Menu:\s
+                1. Add Entry\s
+                2. Remove an Entry\s
+                3. Sort List by Year
+                4. Sort List by Price\s
+                5. Sort List by Quantity
+                6. Calculate and Print the Total Value of the Inventory\s
+                7. Print Inventory
+                8. Quit""");
 
         System.out.print("\n\nPlease select a menu option: ");
         line = scanner.nextLine();
