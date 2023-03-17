@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * keeps track of gizmo supplies
@@ -21,11 +19,10 @@ public class GizmoMain {
         gizmos.add(new Gizmo("Wallaby", 618005, 2019,973, 149.99));
         gizmos.add(new Gizmo("Egret", 618006, 2020,495, 199.99));
 
-        System.out.print("Welcome to the Gizmo Group LLC Inventory Program.\n");
+        System.out.print("Welcome to the Gizmo Group LLC Inventory Program.");
         //Welcome message
 
         while(run){
-
 
             menuChoice = promptMenu(scanner);
 
@@ -33,6 +30,32 @@ public class GizmoMain {
                 addEntry(gizmos,scanner);
 
             } else if (menuChoice==2) {
+                removeEntry(gizmos,scanner);
+
+            } else if (menuChoice==3) {
+                Collections.sort(gizmos);
+
+            } else if (menuChoice==4) {
+                Collections.sort(gizmos, new Comparator<Gizmo>() {
+                    @Override
+                    public int compare(Gizmo o1, Gizmo o2) {
+                        return Double.compare(o1.getPrice(), o2.getPrice());
+                    }
+                });
+
+            } else if (menuChoice==5) {
+                Collections.sort(gizmos, new Comparator<Gizmo>() {
+                    @Override
+                    public int compare(Gizmo o1, Gizmo o2) {
+                        return Integer.compare(o1.getQuantity(), o2.getQuantity());
+                    }
+                });
+
+            } else if (menuChoice==6) {
+
+
+            } else if (menuChoice==7) {
+                printTable(gizmos);
 
             } else if (menuChoice == 8){
                 run=false;
@@ -49,6 +72,7 @@ public class GizmoMain {
 
         System.out.print("""
 
+                
                 Menu:\s
                 1. Add Entry\s
                 2. Remove an Entry\s
@@ -87,7 +111,7 @@ public class GizmoMain {
         String yearStr = scanner.nextLine();
         int yearInt = validateInt(yearStr, scanner);
 
-        System.out.print("Enter quantity in stock (can't be 0): ");
+        System.out.print("Enter quantity in stock: ");
         String quantStr = scanner.nextLine();
         int quantInt = validateInt(quantStr, scanner);
 
@@ -115,6 +139,32 @@ public class GizmoMain {
         gizmos.add(new Gizmo(name, prodNumInt, yearInt, quantInt, price));
     }
 
+    public static void removeEntry(List<Gizmo> gizmos, Scanner scanner){
+        System.out.print("Enter name of gizmo you wish to remove: ");
+        String name = scanner.nextLine();
+
+        Iterator<Gizmo> gizmoItr = gizmos.iterator();
+        Gizmo current;
+        while (gizmoItr.hasNext()){
+            current = gizmoItr.next();
+            if(current.getName().equalsIgnoreCase(name)){
+                gizmoItr.remove();
+            }
+
+        }
+    }
+
+    public static void printTable(List<Gizmo> gizmos){
+        System.out.print("\nProduct Name\tProduct Number\tYear\tQuantity\tPrice($)\n");
+        System.out.print("-".repeat(75));
+
+        for(Gizmo gizmo: gizmos){
+            System.out.printf("%n%s\t\t\t%d\t\t\t%d\t\t%d\t\t%.2f", gizmo.getName(), gizmo.getProductNumber(), gizmo.getYear(),
+            gizmo.getQuantity(), gizmo.getPrice());
+        }
+
+    }
+
     public static int validateInt(String line, Scanner scanner){
         int integer=0;
 
@@ -127,6 +177,10 @@ public class GizmoMain {
                 line = scanner.nextLine();
             }
 
+            if(integer==0){
+                System.out.print("Error: Cannot use 0. Try again: ");
+                line = scanner.nextLine();
+            }
         }
 
         return integer;
