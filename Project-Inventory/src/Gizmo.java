@@ -14,7 +14,7 @@ public class Gizmo implements Comparable<Gizmo>{
      *
      * @param name The name of the planet
      * @param productNumber The id number corresponding to a gizmo
-     * @param year The year the gizmo was added
+     * @param year The year the gizmo was created
      * @param quantity how much of the gizmo is in stock
      * @param price the cost of the gizmo
      */
