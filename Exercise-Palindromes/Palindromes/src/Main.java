@@ -8,8 +8,8 @@ public class Main {
 
         Scanner input = new Scanner(System.in);
         Pattern p = Pattern.compile("([a-zA-Z])");
-        String line, character;
-        StringBuilder newLine = new StringBuilder();
+        String line, character, newLine;
+        StringBuilder tempLine = new StringBuilder();
         Matcher m;
 
         System.out.print("Enter a Sentence: ");
@@ -21,21 +21,32 @@ public class Main {
             m = p.matcher(character);
 
             if(m.matches()){
-                newLine.append(character.toLowerCase());
+                tempLine.append(character.toLowerCase());
             }
         }
 
-        line = newLine.toString();
+        newLine = tempLine.toString();
 
-        if(checkPalindrome(line)){
-
+        if(checkPalindrome(newLine, newLine.length())){
+            System.out.printf("\"%s\" is a palindrome", line);
+        }else{
+            System.out.printf("\"%s\" is not a palindrome", line);
         }
-
-        System.out.println(newLine);
 
     }
 
-    private static boolean checkPalindrome(String newLine){
+    private static boolean checkPalindrome(String line, int l){
+
+        if(line.charAt(l)==line.charAt(line.length()-l)){
+
+            if(l==0){
+                return true;
+
+            }else{
+                checkPalindrome(line, l-1);
+            }
+        }
+
         return false;
     }
 }
