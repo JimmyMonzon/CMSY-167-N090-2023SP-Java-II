@@ -27,7 +27,7 @@ public class Main {
 
         newLine = tempLine.toString();
 
-        if(checkPalindrome(newLine, newLine.length())){
+        if(checkPalindrome(newLine)){
             System.out.printf("\"%s\" is a palindrome", line);
         }else{
             System.out.printf("\"%s\" is not a palindrome", line);
@@ -35,16 +35,14 @@ public class Main {
 
     }
 
-    private static boolean checkPalindrome(String line, int l){
+    private static boolean checkPalindrome(String line){
 
-        if(line.charAt(l)==line.charAt(line.length()-l)){
+        if(line.length()==0||line.length()== 1){
+            return true;
+        }
 
-            if(l==0){
-                return true;
-
-            }else{
-                checkPalindrome(line, l-1);
-            }
+        if(line.charAt(0) == line.charAt(line.length()-1)){
+           return checkPalindrome(line.substring(1, line.length()-1));
         }
 
         return false;
