@@ -1,13 +1,23 @@
 package edu.howardcc.cmsy167.simplemap;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 /**
  * Implementation of SimpleMap using a custom binary search tree
  */
 public class CustomBinaryTreeSimpleMap<K extends Comparable<K>, V> implements SimpleMap<K, V> {
+    private final Map<K, V> map;
+
+    public CustomBinaryTreeSimpleMap() {
+        map = new TreeMap<>();
+    }
 
     @Override
     public void clear() {
-        // TODO
+        for (int i=0; i<map.size(); i++){
+            map.remove(i);
+        }
     }
     
     @Override
@@ -30,7 +40,9 @@ public class CustomBinaryTreeSimpleMap<K extends Comparable<K>, V> implements Si
 
     @Override
     public boolean isEmpty() {
-        // TODO
+        if(map.size()==0){
+            return true;
+        }
         return false;
     }
     
