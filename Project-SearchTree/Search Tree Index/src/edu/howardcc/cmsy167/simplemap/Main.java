@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,10 +28,10 @@ public class Main {
         inputFile = scanner.nextLine();
         inputFilePath = Paths.get(inputFile);
 
-        System.out.printf("\nIndexing %s... \n", inputFile);
-
         try {
             Scanner inputFileScanner = new Scanner(inputFilePath);
+
+            System.out.printf("\nIndexing %s... \n", inputFile);
 
             while(inputFileScanner.hasNextLine()) {
                 lineCounter++;
@@ -60,30 +59,31 @@ public class Main {
                         }
                     }
                 }
-
             }
+
+            do {
+                System.out.print("\nPlease enter a search term(blank to exit):\n");
+                searchTerm = scanner.nextLine().toLowerCase();
+
+                if(!searchTerm.equals("")){
+                    if (indexMap.containsKey(searchTerm)) {
+                        System.out.printf("\nLines containing \"%s\":\n", searchTerm);
+
+                        for (Integer lineNum : indexMap.get(searchTerm))
+                            System.out.printf("%d: %s\n", lineNum, lineMap.get(lineNum));
+                        System.out.println();
+
+                    } else {
+                        System.out.printf("\nThis file does not contain \"%s\"", searchTerm);
+                    }
+                }
+
+            } while(!searchTerm.equals(""));
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.printf("\nNo such file found: %s", inputFile);
 
         }
-
-        do {
-            System.out.print("\nPlease enter a search term(blank to exit):\n");
-            searchTerm = scanner.nextLine().toLowerCase();
-
-            if (indexMap.containsKey(searchTerm)) {
-
-                for (Integer lineNum : indexMap.get(searchTerm))
-                    System.out.printf("%d: %s\n", lineNum, lineMap.get(lineNum));
-                System.out.println();
-
-            } else{
-                System.out.printf("\nThis file does not contain \"%s\"", searchTerm);
-            }
-
-        } while(!searchTerm.equals(""));
-
         System.out.print("\nThank you for using this program.");
 
     }
